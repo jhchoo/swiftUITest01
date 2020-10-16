@@ -1,0 +1,83 @@
+//
+//  ContentView.swift
+//  swiftUITest
+//
+//  Created by jae hwan choo on 2020/10/15.
+//
+
+import SwiftUI
+
+struct MyVStackView: View {
+    var body: some View {
+        VStack {
+            Text("1!").fontWeight(.bold).font(.system(size: 60))
+            Text("2!").fontWeight(.bold).font(.system(size: 60))
+            Text("3!").fontWeight(.bold).font(.system(size: 60))
+        }.background(Color.blue)
+    }
+}
+
+struct ContentView: View {
+    
+    @State
+    var isActive: Bool = false
+    
+    var body: some View {
+        Color(UIColor.dustyOrange).overlay(
+            
+            NavigationView {
+                VStack {
+                    
+                    HStack(spacing: 10) {
+                        MyVStackView()
+                        MyVStackView()
+                        MyVStackView()
+                    }
+                    .padding(isActive ? 50 : 10)
+                    .background(isActive ? Color.yellow : Color.red)
+                    // 탭 제스쳐 추가.
+                    .onTapGesture(count: 1, perform: {
+                        print("크릭되었다.")
+                        //self.isActive = !self.isActive
+                        
+                        // 에니메이션과 함께
+                        withAnimation {
+                            self.isActive = !self.isActive
+                        }
+                    })
+                    
+                    Rectangle()
+                        .foregroundColor(.red)
+                        .frame(width: 200, height: (5.0))
+                        .padding(.top, 50)
+                    
+                    NavigationLink( destination: MyTextView(isActive: $isActive) ) {
+                            Text("이동")
+                                .fontWeight(.heavy)
+                                .font(.system(size: 60))
+                                .foregroundColor(Color.white)
+                                .frame(width: 200, height: 100, alignment: .center)
+                    }
+                    .background(Color.orange)
+                    .cornerRadius(30)
+            
+                }
+            }
+
+        ).edgesIgnoringSafeArea(.all)
+        .onAppear {
+            print("ContentView appeared!")
+        }.onDisappear {
+            print("ContentView disappeared!")
+        }
+    }
+}
+
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ContentView()
+        }
+    }
+}
