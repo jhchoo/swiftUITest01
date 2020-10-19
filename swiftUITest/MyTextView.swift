@@ -13,11 +13,13 @@ struct MyTextView: View {
     @State var index: Int = 0
     let colorArray = [UIColor.deepRed, UIColor.white, UIColor.yellow, UIColor.green]
         
-    @Binding var isActive: Bool
+    // @Binding
+    var isActive: Bool
     
     // 생성자.
-    init(isActive: Binding<Bool> = .constant(false)) {
-        _isActive = isActive
+    // init(isActive: Binding<Bool> = .constant(false)) {
+    init(isActive: Bool = false) {
+        self.isActive = isActive
     }
     
     var body: some View {

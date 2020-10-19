@@ -51,7 +51,7 @@ struct ContentView: View {
                         .frame(width: 200, height: (5.0))
                         .padding(.top, 50)
                     
-                    NavigationLink( destination: MyTextView(isActive: $isActive) ) {
+                    NavigationLink( destination: MyTextView(isActive: self.isActive) ) {
                             Text("이동")
                                 .fontWeight(.heavy)
                                 .font(.system(size: 60))
@@ -64,10 +64,13 @@ struct ContentView: View {
                 }
             }
 
-        ).edgesIgnoringSafeArea(.all)
+        )
+        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        .edgesIgnoringSafeArea(.all)
         .onAppear {
             print("ContentView appeared!")
-        }.onDisappear {
+        }
+        .onDisappear {
             print("ContentView disappeared!")
         }
     }
